@@ -49,7 +49,8 @@ import Control.Monad.Trans
 import Control.Exception.Extensible
 import qualified Control.Monad as M (forever)
 import Prelude hiding (catch)
-import System
+import System.Exit (ExitCode(..))
+import System.Environment (getArgs, getProgName)
 import System.Posix
 import System.Posix.Syslog (withSyslog,Option(..),Priority(..),Facility(..),syslog)
 import System.FilePath.Posix (joinPath)
