@@ -48,7 +48,13 @@ module System.Posix.Daemonize (
 import Control.Monad.Trans
 import Control.Exception.Extensible
 import qualified Control.Monad as M (forever)
+
+#ifdef MIN_VERSION_base(4,6)
+import Prelude
+#else
 import Prelude hiding (catch)
+#endif
+
 import System.Environment
 import System.Exit
 import System.Posix
