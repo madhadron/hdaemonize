@@ -147,8 +147,8 @@ serviced daemon = do
   process daemon' args
     where
       
-      program' daemon = withSyslog (fromJust $ name daemon) (syslogOptions daemon) DAEMON $
-                      do let log = syslog Notice
+      program' daemon = withSyslog (fromJust $ name daemon) (syslogOptions daemon) DAEMON [] $ do
+                         let log = syslog Notice
                          log "starting"
                          pidWrite daemon
                          privVal <- privilegedAction daemon
