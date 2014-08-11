@@ -1,4 +1,5 @@
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE CPP #-}
 module System.Posix.Daemonize (
   -- * Simple daemonization
   daemonize, 
@@ -58,7 +59,7 @@ import Prelude hiding (catch)
 import System.Environment
 import System.Exit
 import System.Posix
-import System.Posix.Syslog (withSyslog,Option(..),Priority(..),Facility(..),syslog)
+import System.Posix.Syslog (withSyslog,Option(..),Priority(..),Facility(..),syslog, logUpTo)
 import System.FilePath.Posix (joinPath)
 import Data.Maybe (isNothing, fromMaybe, fromJust)
 
@@ -147,7 +148,7 @@ serviced daemon = do
   process daemon' args
     where
       
-      program' daemon = withSyslog (fromJust $ name daemon) (syslogOptions daemon) DAEMON $
+      program' daemon = withSyslog (fromJust $ name daemon) (syslogOptions daemon) DAEMON (logUpTo Debug) $
                       do let log = syslog Notice
                          log "starting"
                          pidWrite daemon
